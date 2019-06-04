@@ -64,7 +64,7 @@ struct EvalParameters {
   float sigma{10};                      ///< Standard deviation of depth noise
   float sigma_rot{0};                   ///< Standard deviation of rotation noise
   float sigma_trans{0};                 ///< Standard deviation of translation noise
-  double random_rate{0.5};              ///< Downsampling: Percentage of total points to keep
+  double random_rate{0.3};              ///< Downsampling: Percentage of total points to keep
   size_t skip_rows{10};                 ///< Downsampling: Keep every n-th row
   size_t skip_cols{10};                 ///< Downsampling: Keep every n-th column
 };
@@ -172,146 +172,146 @@ void ExtractInputDataPath(const boost::filesystem::path &p,
  *  @param test_name Optional test name
  *  @param feature_nr Which features in the image to use
  *  @return String featuring some information about the results */
-std::string evaluate(const PathContainer& pc,
-                     const mrf::Parameters& p_mrf,
-                     const EvalParameters& p_eval,
-                     const std::string& test_name = "",
-                     const size_t feature_nr = 2) {
-  boost::filesystem::path path_name{"/tmp/eval_scenenet/data/" + std::to_string(p_eval.iteration) + "/"};
-  boost::filesystem::create_directories(path_name);
-
-  LOG(INFO) << "Foto path: " << pc.photo.string();
-  LOG(INFO) << "Depth path: " << pc.depth.string();
-  LOG(INFO) << "Loading and converting images";
-  cv::Mat img_photo{cv::imread(pc.photo.string(), cv::IMREAD_COLOR)};
-  cv::Mat img_depth{cv::imread(pc.depth.string(), cv::IMREAD_ANYDEPTH)};
-  cv::Mat img_instance{cv::imread(pc.instance.string(), cv::IMREAD_ANYDEPTH)};
-  LOG(INFO) << "Depth photo: " << img_photo.depth() << ", depth depth: " << img_depth.depth()
-            << ", depth instance: " << img_instance.depth();
-  LOG(INFO) << "Channels photo: " << img_photo.channels() << ", channels depth: " << img_depth.channels()
-            << ", channels instance: " << img_instance.channels();
-
-  /**
-   * \attention Units in dataset are in mm! Need to convert to meters
-   */
-  img_depth.convertTo(img_depth, cv::DataType<double>::type, 0.001);
-  //img_photo.convertTo(img_photo, cv::Vec3f::depth);
-  img_photo.convertTo(img_photo, cv::DataType<float>::type);
-  img_instance.convertTo(img_instance, cv::DataType<float>::type);
-
-  double minVal;
-  double maxVal;
-  cv::Point minLoc;
-  cv::Point maxLoc;
-
-  cv::minMaxLoc(img_depth, &minVal, &maxVal, &minLoc, &maxLoc);
-  LOG(INFO) << "Groundtruth img_depth min + max values: " << minVal << " + " << maxVal;
-
-
-  LOG(INFO) << "Export converted images";
-  mrf::exportImage(img_photo, path_name.string() + "rgb_", true);
-  mrf::exportImage(img_instance, path_name.string() + "instance_", true, false, true);
-  mrf::exportImage(img_depth, path_name.string() + "depth_", true, false, true);
-
-  const size_t rows = img_depth.rows;
-  const size_t cols = img_depth.cols;
-  std::vector<cv::Mat> channels;
-  cv::split(img_photo, channels);
-  channels.emplace_back(img_instance);
-  cv::Mat_<cv::Vec4f> img_multi_channel(rows, cols);
-  cv::merge(channels, img_multi_channel);
-
-  LOG(INFO) << "Create camera model";
-  const double focal_length{cols / (2 * std::tan(M_PI / 6))};
-  std::shared_ptr<CameraModelPinhole> cam{new CameraModelPinhole(cols, rows, focal_length, cols / 2, rows / 2)};
-
-  LOG(INFO) << "Create cloud from depth image";
-  using PointIn = pcl::PointXYZINormal;
-  using CloudIn = pcl::PointCloud<PointIn>;
-  CloudIn::Ptr cl{new CloudIn};
-  cl->height = rows;
-  cl->width = cols;
-  cl->resize(cl->width * cl->height);
-  cv::Mat img;
-  cv::cvtColor(img_photo, img, CV_BGR2GRAY);
-  for (size_t r = 0; r < rows; r++) {
-    for (size_t c = 0; c < cols; c++) {
-      Eigen::Vector3d support, direction;
-      cam->getViewingRay(Eigen::Vector2d(c, r), support, direction);
-      const Eigen::ParametrizedLine<double, 3> ray(support, direction);
-      cl->at(c, r).getVector3fMap() = ray.pointAt(img_depth.at<double>(r, c)).cast<float>();
-      cl->at(c, r).intensity = img.at<float>(r, c);
-    }
-  }
-  cl = mrf::estimateNormals<PointIn, PointIn>(cl, p_mrf.radius_normal_estimation, false);
-
-  const mrf::Data<PointIn> ground_truth{cl, img_depth};
-  LOG(INFO) << "Export ground truth data";
-  exportData(ground_truth, path_name.string() + "ground_truth_");
-
-  LOG(INFO) << "Downsample cloud";
-  CloudIn::Ptr cl_downsampled;
-  if (p_eval.equidistant) {
-    cl_downsampled = mrf::downsampleEquidistant<PointIn>(cl, p_eval.skip_cols, p_eval.skip_rows);
-  } else {
-    cl_downsampled = mrf::downsampleRandom<PointIn>(cl, p_eval.random_rate);
-  }
-
-  if (p_eval.noisetype == EvalParameters::NoiseType::CalibrationNoise) {
-    LOG(INFO) << "Add Calibration Noise";
-    cl_downsampled = mrf::addCalibrationNoise<PointIn>(cl_downsampled, p_eval.sigma_trans, p_eval.sigma_rot);
-  } else if (p_eval.noisetype == EvalParameters::NoiseType::DepthNoise) {
-    LOG(INFO) << "Add Depth Noise";
-    cl_downsampled = mrf::addDepthNoise<PointIn>(cl_downsampled, p_eval.sigma);
-  }
-
-  const mrf::Data<PointIn> in{cl_downsampled, img_multi_channel};
-  mrf::exportCloud<PointIn>(in.cloud, path_name.string() + "in_");
-  LOG(INFO) << "Export downsampled data";
-  exportDepthImage(
-      mrf::Data<PointIn>{cl_downsampled, img_depth}, cam, path_name.string() + "depth_downsampled_", true, false, true);
-  exportOverlay(mrf::Data<PointIn>{cl_downsampled, img_photo}, cam, path_name.string() + "downsampled_overlay_");
-
-  cv::Mat image_in;
-  switch (feature_nr) { //> can be put into better structure for future
-    case 0:
-      image_in = img;
-      LOG(INFO) << "Use Gray features only";
-      break;
-    case 1:
-      image_in = img_photo;
-      LOG(INFO) << "Use RGB features only";
-      break;
-    case 2:
-      image_in = img_multi_channel;
-      LOG(INFO) << "Use RGB and instance features";
-      break;
-  }
-
-  LOG(INFO) << "Call MRF library";
-  using PointOut = pcl::PointXYZRGBNormal;
-  mrf::Data<PointOut> out;
-  mrf::Solver s{cam, p_mrf};
-  const mrf::ResultInfo result_info{s.solve(in, out)};
-  const mrf::Quality q{mrf::evaluate<PointIn, PointOut>(ground_truth, out, cam)};
-  LOG(INFO) << "Quality" << std::endl << mrf::Quality::header() << std::endl << q;
-
-  LOG(INFO) << "Export output data";
-  mrf::exportImage(out.image, path_name.string() + "out_", true, false, true);
-  mrf::exportCloud<PointOut>(out.cloud, path_name.string() + "out_");
-
-  LOG(INFO) << "Export depth error";
-  mrf::exportImage(cv::abs(q.depth_error), path_name.string() + "depth_error_", true, true, true);
-
-  LOG(INFO) << "Export result info";
-  exportResultInfo(result_info, path_name.string() + "result_info_");
-
-
-  std::ostringstream oss;
-  oss << result_info << mrf::ResultInfo::del << q << mrf::ResultInfo::del << p_mrf << mrf::ResultInfo::del << maxVal
-      << mrf::ResultInfo::del << minVal;
-  return oss.str();
-}
+//std::string evaluate(const PathContainer& pc,
+//                     const mrf::Parameters& p_mrf,
+//                     const EvalParameters& p_eval,
+//                     const std::string& test_name = "",
+//                     const size_t feature_nr = 2) {
+//  boost::filesystem::path path_name{"/tmp/eval_scenenet/data/" + std::to_string(p_eval.iteration) + "/"};
+//  boost::filesystem::create_directories(path_name);
+//
+//  LOG(INFO) << "Foto path: " << pc.photo.string();
+//  LOG(INFO) << "Depth path: " << pc.depth.string();
+//  LOG(INFO) << "Loading and converting images";
+//  cv::Mat img_photo{cv::imread(pc.photo.string(), cv::IMREAD_COLOR)};
+//  cv::Mat img_depth{cv::imread(pc.depth.string(), cv::IMREAD_ANYDEPTH)};
+//  cv::Mat img_instance{cv::imread(pc.instance.string(), cv::IMREAD_ANYDEPTH)};
+//  LOG(INFO) << "Depth photo: " << img_photo.depth() << ", depth depth: " << img_depth.depth()
+//            << ", depth instance: " << img_instance.depth();
+//  LOG(INFO) << "Channels photo: " << img_photo.channels() << ", channels depth: " << img_depth.channels()
+//            << ", channels instance: " << img_instance.channels();
+//
+//  /**
+//   * \attention Units in dataset are in mm! Need to convert to meters
+//   */
+//  img_depth.convertTo(img_depth, cv::DataType<double>::type, 0.001);
+//  //img_photo.convertTo(img_photo, cv::Vec3f::depth);
+//  img_photo.convertTo(img_photo, cv::DataType<float>::type);
+//  img_instance.convertTo(img_instance, cv::DataType<float>::type);
+//
+//  double minVal;
+//  double maxVal;
+//  cv::Point minLoc;
+//  cv::Point maxLoc;
+//
+//  cv::minMaxLoc(img_depth, &minVal, &maxVal, &minLoc, &maxLoc);
+//  LOG(INFO) << "Groundtruth img_depth min + max values: " << minVal << " + " << maxVal;
+//
+//
+//  LOG(INFO) << "Export converted images";
+//  mrf::exportImage(img_photo, path_name.string() + "rgb_", true);
+//  mrf::exportImage(img_instance, path_name.string() + "instance_", true, false, true);
+//  mrf::exportImage(img_depth, path_name.string() + "depth_", true, false, true);
+//
+//  const size_t rows = img_depth.rows;
+//  const size_t cols = img_depth.cols;
+//  std::vector<cv::Mat> channels;
+//  cv::split(img_photo, channels);
+//  channels.emplace_back(img_instance);
+//  cv::Mat_<cv::Vec4f> img_multi_channel(rows, cols);
+//  cv::merge(channels, img_multi_channel);
+//
+//  LOG(INFO) << "Create camera model";
+//  const double focal_length{cols / (2 * std::tan(M_PI / 6))};
+//  std::shared_ptr<CameraModelPinhole> cam{new CameraModelPinhole(cols, rows, focal_length, cols / 2, rows / 2)};
+//
+//  LOG(INFO) << "Create cloud from depth image";
+//  using PointIn = pcl::PointXYZINormal;
+//  using CloudIn = pcl::PointCloud<PointIn>;
+//  CloudIn::Ptr cl{new CloudIn};
+//  cl->height = rows;
+//  cl->width = cols;
+//  cl->resize(cl->width * cl->height);
+//  cv::Mat img;
+//  cv::cvtColor(img_photo, img, CV_BGR2GRAY);
+//  for (size_t r = 0; r < rows; r++) {
+//    for (size_t c = 0; c < cols; c++) {
+//      Eigen::Vector3d support, direction;
+//      cam->getViewingRay(Eigen::Vector2d(c, r), support, direction);
+//      const Eigen::ParametrizedLine<double, 3> ray(support, direction);
+//      cl->at(c, r).getVector3fMap() = ray.pointAt(img_depth.at<double>(r, c)).cast<float>();
+//      cl->at(c, r).intensity = img.at<float>(r, c);
+//    }
+//  }
+//  cl = mrf::estimateNormals<PointIn, PointIn>(cl, p_mrf.radius_normal_estimation, false);
+//
+//  const mrf::Data<PointIn> ground_truth{cl, img_depth};
+//  LOG(INFO) << "Export ground truth data";
+//  exportData(ground_truth, path_name.string() + "ground_truth_");
+//
+//  LOG(INFO) << "Downsample cloud";
+//  CloudIn::Ptr cl_downsampled;
+//  if (p_eval.equidistant) {
+//    cl_downsampled = mrf::downsampleEquidistant<PointIn>(cl, p_eval.skip_cols, p_eval.skip_rows);
+//  } else {
+//    cl_downsampled = mrf::downsampleRandom<PointIn>(cl, p_eval.random_rate);
+//  }
+//
+//  if (p_eval.noisetype == EvalParameters::NoiseType::CalibrationNoise) {
+//    LOG(INFO) << "Add Calibration Noise";
+//    cl_downsampled = mrf::addCalibrationNoise<PointIn>(cl_downsampled, p_eval.sigma_trans, p_eval.sigma_rot);
+//  } else if (p_eval.noisetype == EvalParameters::NoiseType::DepthNoise) {
+//    LOG(INFO) << "Add Depth Noise";
+//    cl_downsampled = mrf::addDepthNoise<PointIn>(cl_downsampled, p_eval.sigma);
+//  }
+//
+//  const mrf::Data<PointIn> in{cl_downsampled, img_multi_channel};
+//  mrf::exportCloud<PointIn>(in.cloud, path_name.string() + "in_");
+//  LOG(INFO) << "Export downsampled data";
+//  exportDepthImage(
+//      mrf::Data<PointIn>{cl_downsampled, img_depth}, cam, path_name.string() + "depth_downsampled_", true, false, true);
+//  exportOverlay(mrf::Data<PointIn>{cl_downsampled, img_photo}, cam, path_name.string() + "downsampled_overlay_");
+//
+//  cv::Mat image_in;
+//  switch (feature_nr) { //> can be put into better structure for future
+//    case 0:
+//      image_in = img;
+//      LOG(INFO) << "Use Gray features only";
+//      break;
+//    case 1:
+//      image_in = img_photo;
+//      LOG(INFO) << "Use RGB features only";
+//      break;
+//    case 2:
+//      image_in = img_multi_channel;
+//      LOG(INFO) << "Use RGB and instance features";
+//      break;
+//  }
+//
+//  LOG(INFO) << "Call MRF library";
+//  using PointOut = pcl::PointXYZRGBNormal;
+//  mrf::Data<PointOut> out;
+//  mrf::Solver s{cam, p_mrf};
+//  const mrf::ResultInfo result_info{s.solve(in, out)};
+//  const mrf::Quality q{mrf::evaluate<PointIn, PointOut>(ground_truth, out, cam)};
+//  LOG(INFO) << "Quality" << std::endl << mrf::Quality::header() << std::endl << q;
+//
+//  LOG(INFO) << "Export output data";
+//  mrf::exportImage(out.image, path_name.string() + "out_", true, false, true);
+//  mrf::exportCloud<PointOut>(out.cloud, path_name.string() + "out_");
+//
+//  LOG(INFO) << "Export depth error";
+//  mrf::exportImage(cv::abs(q.depth_error), path_name.string() + "depth_error_", true, true, true);
+//
+//  LOG(INFO) << "Export result info";
+//  exportResultInfo(result_info, path_name.string() + "result_info_");
+//
+//
+//  std::ostringstream oss;
+//  oss << result_info << mrf::ResultInfo::del << q << mrf::ResultInfo::del << p_mrf << mrf::ResultInfo::del << maxVal
+//      << mrf::ResultInfo::del << minVal;
+//  return oss.str();
+//}
 
 
 int main(int argc, char** argv) {
@@ -350,11 +350,13 @@ int main(int argc, char** argv) {
 
   EvalParameters p_eval;
   p_eval.noisetype = EvalParameters::NoiseType::None;
-  p_eval.equidistant = true;
+  p_eval.equidistant = false;  // down sample pointcloud setting
 
   // TODO: start evaluation process
   PathContainer pc = paths[0];
-  const size_t feature_nr = 2;
+//  const size_t feature_nr = 0;  //Use Gray features only
+  const size_t feature_nr = 1;  //Use RGB features only
+//  const size_t feature_nr = 2;  //Use RGB and instance features
   boost::filesystem::path output_data_path{output_path + "/data/" +
       std::to_string(p_eval.iteration)+"/"};
   boost::filesystem::create_directories(output_data_path);
@@ -446,13 +448,6 @@ int main(int argc, char** argv) {
     cl_downsampled = mrf::addDepthNoise<PclPoint>(cl_downsampled, p_eval.sigma);
   }
 
-  const mrf::Data<PclPoint> in{cl_downsampled, img_multi_channel};
-  mrf::exportCloud<PclPoint>(in.cloud, output_data_path.string() + "in_");
-  LOG(INFO) << "Export downsampled data";
-  exportDepthImage(
-      mrf::Data<PclPoint>{cl_downsampled, img_depth}, cam, output_data_path.string() + "depth_downsampled_", true, false, true);
-  exportOverlay(mrf::Data<PclPoint>{cl_downsampled, img_photo}, cam, output_data_path.string() + "downsampled_overlay_");
-
   cv::Mat image_in;
   switch(feature_nr) { //> can be put into better structure for future
     case 0:
@@ -468,6 +463,13 @@ int main(int argc, char** argv) {
       LOG(INFO) << "Use RGB and instance features";
       break;
   }
+  const mrf::Data<PclPoint> in{cl_downsampled, image_in};
+  mrf::exportCloud<PclPoint>(in.cloud, output_data_path.string() + "in_");
+  LOG(INFO) << "Export downsampled data";
+  exportDepthImage(
+      mrf::Data<PclPoint>{cl_downsampled, img_depth}, cam, output_data_path.string() + "depth_downsampled_", true, false, true);
+  exportOverlay(mrf::Data<PclPoint>{cl_downsampled, img_photo}, cam, output_data_path.string() + "downsampled_overlay_");
+
 
   LOG(INFO) << "Call MRF library";
   using PointOut = pcl::PointXYZRGBNormal;
