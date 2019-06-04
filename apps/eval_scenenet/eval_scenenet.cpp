@@ -93,7 +93,8 @@ std::string evaluate(const PathContainer& pc,
      * \attention Units in dataset are in mm! Need to convert to meters
      */
     img_depth.convertTo(img_depth, cv::DataType<double>::type, 0.001);
-    img_photo.convertTo(img_photo, cv::Vec3f::depth);
+    //img_photo.convertTo(img_photo, cv::Vec3f::depth);
+    img_photo.convertTo(img_photo, cv::DataType<float>::type);
     img_instance.convertTo(img_instance, cv::DataType<float>::type);
 
     double minVal;
@@ -219,11 +220,11 @@ bpo::variables_map makeOptions(int argc, char** argv) {
     // clang-format off
     options_description.add_options()
     		("help,h", "Produce help message")
-			("input,i", bpo::value<std::string>()->default_value("/datasets/scenenet_rgb-d/val/0/0"), "Path to input folders")
-			("output,o", bpo::value<std::string>()->default_value("/tmp/eval_scenenet_rgb-d"), "Path to log output")
-			("parameters,p", bpo::value<std::string>()->default_value(""), "Path to parameters file")
+			("input,i", bpo::value<std::string>()->default_value("/home/mikezhu/3rd_party_data_set/data_set/0/0"), "Path to input folders")
+			("output,o", bpo::value<std::string>()->default_value("/home/mikezhu/3rd_party_data_set"), "Path to log output")
+			("parameters,p", bpo::value<std::string>()->default_value("/home/mikezhu/catkin_tool_ws/src/mrf/res/parameters_scenenet.yaml"), "Path to parameters file")
 			("samples,s", bpo::value<size_t>()->default_value(3), "Number of samples to use")
-			("offset,off", bpo::value<size_t>()->default_value(0), "Naming offset");
+			("offset,f", bpo::value<size_t>()->default_value(0), "Naming offset");
     // clang-format on
     bpo::variables_map options;
     bpo::store(bpo::command_line_parser(argc, argv).options(options_description).run(), options);
@@ -306,7 +307,7 @@ int main(int argc, char** argv) {
     google::InitGoogleLogging("eval_scenenet");
     google::InstallFailureSignalHandler();
     bpo::variables_map options{makeOptions(argc, argv)};
-
+    
     const bfs::path p(options.at("input").as<std::string>());
     const std::vector<PathContainer> paths{extractData(p)};
 

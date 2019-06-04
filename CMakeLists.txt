@@ -5,10 +5,13 @@ project(mrf)
 set(CMAKE_CXX_FLAGS "-std=c++14 ${CMAKE_CXX_FLAGS}")
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
 
+find_package(PkgConfig REQUIRED)
+pkg_search_module(Eigen3 REQUIRED eigen3)
+
 find_package(catkin REQUIRED)
 find_package(Ceres REQUIRED)
 find_package(PCL REQUIRED)
-find_package(Eigen3 REQUIRED)
+#find_package(Eigen3 REQUIRED)
 find_package(Boost REQUIRED COMPONENTS
 	filesystem
 	program_options
@@ -66,6 +69,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
 add_subdirectory(apps)
 
-if(CATKIN_ENABLE_TESTING)
-        add_subdirectory(test)
-endif()
+#if(CATKIN_ENABLE_TESTING)
+#        add_subdirectory(test)
+#endif()
