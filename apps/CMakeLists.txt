@@ -21,3 +21,15 @@ target_link_libraries(eval_scenenet
 	${CERES_LIBRARIES}
 	${yaml-cpp_LIBRARIES}
 )
+
+add_executable(eval_kitti eval_kitti/eval_kitti.cpp)
+target_link_libraries(eval_kitti
+	mrf
+	${catkin_LIBRARIES}
+	${PCL_LIBRARIES}
+	${Boost_LIBRARIES}
+	${OpenCV_LIBS}
+	${GLOG_LIBRARY}
+	${CERES_LIBRARIES}
+	${yaml-cpp_LIBRARIES}
+)
