@@ -7,12 +7,12 @@
       <config projectName="mrf" targetName="eval_scenenet" />
       <config projectName="mrf" targetName="clean_test_results" />
       <config projectName="mrf" targetName="gtest" />
-      <config projectName="mrf" targetName="mrf" />
       <config projectName="mrf" targetName="gmock_main" />
+      <config projectName="mrf" targetName="mrf" />
       <config projectName="mrf" targetName="download_extra_data" />
       <config projectName="mrf" targetName="eval_planes" />
-      <config projectName="mrf" targetName="gtest_main" />
       <config projectName="mrf" targetName="eval_kitti" />
+      <config projectName="mrf" targetName="gtest_main" />
       <config projectName="mrf" targetName="doxygen" />
       <config projectName="mrf" targetName="_catkin_empty_exported_target" />
       <config projectName="mrf" targetName="run_tests" />
@@ -25,9 +25,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2ebfccb-3b8a-4ed0-b221-d28185166c10" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/res/parameters_kitti.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/eval_scenenet/eval_scenenet.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/eval_scenenet/eval_scenenet.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/~/catkin_tool_ws/build/" />
@@ -44,41 +44,35 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+        <entry file="file://$PROJECT_DIR$/apps/eval_scenenet/eval_scenenet.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1035">
-              <caret line="69" column="22" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+            <state relative-caret-position="-4">
+              <caret line="471" selection-start-line="471" selection-end-line="471" />
               <folding>
-                <element signature="e#492#753#1" />
-                <element signature="e#8923#10579#0" />
-                <element signature="e#10581#12888#0" />
-                <element signature="e#6593#12782#0" />
+                <element signature="e#39#70#0" expanded="true" />
+                <element signature="e#6775#6822#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apps/eval_scenenet/eval_scenenet.cpp">
+        <entry file="file://$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="457" column="11" lean-forward="true" selection-start-line="457" selection-start-column="11" selection-end-line="457" selection-end-column="11" />
+            <state relative-caret-position="389">
+              <caret line="157" column="36" lean-forward="true" selection-start-line="157" selection-start-column="36" selection-end-line="157" selection-end-column="36" />
               <folding>
                 <element signature="e#39#70#0" expanded="true" />
-                <element signature="e#416#753#1" />
-                <element signature="e#2497#3982#0" />
-                <element signature="e#3984#6426#0" />
-                <element signature="e#6428#12708#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/parameters_kitti.yaml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="720">
+              <caret line="48" column="25" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -92,6 +86,10 @@
       <find>bfs</find>
       <find>test_name</find>
       <find>feature_nr</find>
+      <find>image_in</find>
+      <find>minLoc</find>
+      <find>in</find>
+      <find>cam</find>
     </findStrings>
     <replaceStrings>
       <replace>boost::program_options</replace>
@@ -107,13 +105,13 @@
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/apps/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/include/mrf/parameters.hpp" />
-        <option value="$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp" />
         <option value="$PROJECT_DIR$/apps/eval_scenenet/eval_scenenet.cpp" />
+        <option value="$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="3895" />
+    <option name="x" value="55" />
     <option name="y" value="-4" />
     <option name="width" value="1865" />
     <option name="height" value="1084" />
@@ -174,10 +172,15 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/CMakeLists.txt" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/res" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -191,7 +194,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="CMake Application.eval_scenenet">
+  <component name="RunManager" selected="CMake Application.eval_kitti">
     <configuration name="_catkin_empty_exported_target" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="mrf" TARGET_NAME="_catkin_empty_exported_target" CONFIG_NAME="Release">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -212,7 +215,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="eval_kitti_3rd_data" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--input $USER_HOME$/3rd_party_data_set/data_set/0/0 --output $USER_HOME$/3rd_party_data_set/output --parameters $PROJECT_DIR$/res/parameters_scenenet.yaml" PASS_PARENT_ENVS_2="true" PROJECT_NAME="mrf" TARGET_NAME="eval_kitti" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="mrf" RUN_TARGET_NAME="eval_kitti">
+    <configuration name="eval_kitti" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="--input $USER_HOME$/3rd_party_data_set/kitti_mrf/ --output $USER_HOME$/3rd_party_data_set/output/ --parameters $PROJECT_DIR$/res/parameters_kitti.yaml" PASS_PARENT_ENVS_2="true" PROJECT_NAME="mrf" TARGET_NAME="eval_kitti" CONFIG_NAME="Release" RUN_TARGET_PROJECT_NAME="mrf" RUN_TARGET_NAME="eval_kitti">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -265,7 +268,7 @@
     <list>
       <item itemvalue="CMake Application.eval_planes" />
       <item itemvalue="CMake Application.eval_scenenet" />
-      <item itemvalue="CMake Application.eval_kitti_3rd_data" />
+      <item itemvalue="CMake Application.eval_kitti" />
       <item itemvalue="CMake Application.mrf" />
       <item itemvalue="CMake Application.clean_test_results" />
       <item itemvalue="CMake Application.download_extra_data" />
@@ -293,34 +296,44 @@
       <option name="presentableId" value="Default" />
       <updated>1559594278961</updated>
       <workItem from="1559594281092" duration="85000" />
-      <workItem from="1559594466248" duration="12828000" />
+      <workItem from="1559594466248" duration="19667000" />
+      <workItem from="1559676399549" duration="2053000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12913000" />
+    <option name="totallyTimeSpent" value="21805000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="3895" y="-4" width="1865" height="1084" extended-state="6" />
+    <frame x="3849" y="356" width="1865" height="1056" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Structure" order="0" sideWeight="0.5007278" side_tool="true" weight="0.15448049" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4992722" side_tool="true" visible="true" weight="0.15448049" />
+      <window_info id="Structure" order="0" sideWeight="0.5007278" side_tool="true" weight="0.15612975" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4992722" side_tool="true" visible="true" weight="0.13139087" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" visible="true" weight="0.32008368" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.31903765" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2991632" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286638" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39330545" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="CMake" order="12" weight="0.3211297" />
+      <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" side_tool="true" weight="0.3294979" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="CMake" order="10" weight="0.32008368" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.2751046" />
+      <window_info anchor="bottom" id="Version Control" order="12" side_tool="true" weight="0.3294979" />
+      <window_info anchor="bottom" id="TODO" order="13" side_tool="true" weight="0.3294979" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -329,6 +342,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp</url>
+          <line>119</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test/CMakeLists (copy).txt">
@@ -400,13 +424,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1035">
-          <caret line="69" column="22" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///opt/ros/kinetic/include/opencv-3.3.1-dev/opencv2/core/mat.inl.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -428,13 +445,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///opt/ros/kinetic/include/opencv-3.3.1-dev/opencv2/core.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="912" column="18" selection-start-line="912" selection-start-column="18" selection-end-line="912" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/mrf/parameters.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -445,13 +455,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/parameters_scenenet.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="52" column="22" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/mrf/camera_model_pinhole.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -459,36 +462,123 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/camera_model_pinhole.cpp">
+    <entry file="file:///usr/include/c++/5/bits/shared_ptr.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="18" column="62" lean-forward="true" selection-start-line="18" selection-start-column="62" selection-end-line="18" selection-end-column="62" />
+        <state relative-caret-position="208">
+          <caret line="631" column="4" selection-start-line="631" selection-start-column="4" selection-end-line="631" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp">
+    <entry file="file:///usr/include/stdlib.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+        <state relative-caret-position="208">
+          <caret line="132" column="8" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1035">
+          <caret line="69" column="22" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/mrf/solver.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/mrf/evaluate.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/ros/kinetic/include/opencv-3.3.1-dev/opencv2/core.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12240">
+          <caret line="816" column="18" selection-start-line="816" selection-start-column="18" selection-end-line="816" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/parameters_planes.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-769" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/parameters_scenenet.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="52" column="22" lean-forward="true" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/parameters.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="41" column="39" lean-forward="true" selection-start-line="41" selection-start-column="39" selection-end-line="41" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/mrf/cloud_preprocessing.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
           <folding>
-            <element signature="e#492#753#1" />
-            <element signature="e#8923#10579#0" />
-            <element signature="e#10581#12888#0" />
-            <element signature="e#6593#12782#0" />
+            <element signature="e#14#39#0" expanded="true" />
+            <element signature="e#408#432#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/camera_model_pinhole.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="19" column="64" selection-start-line="15" selection-start-column="39" selection-end-line="19" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/mrf/noise.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/mrf/downsample.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="33" column="1" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/eval_scenenet/eval_scenenet.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="457" column="11" lean-forward="true" selection-start-line="457" selection-start-column="11" selection-end-line="457" selection-end-column="11" />
+        <state relative-caret-position="-4">
+          <caret line="471" selection-start-line="471" selection-end-line="471" />
           <folding>
             <element signature="e#39#70#0" expanded="true" />
-            <element signature="e#416#753#1" />
-            <element signature="e#2497#3982#0" />
-            <element signature="e#3984#6426#0" />
-            <element signature="e#6428#12708#0" />
+            <element signature="e#6775#6822#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/parameters_kitti.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="48" column="25" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="157" column="36" lean-forward="true" selection-start-line="157" selection-start-column="36" selection-end-line="157" selection-end-column="36" />
+          <folding>
+            <element signature="e#39#70#0" expanded="true" />
           </folding>
         </state>
       </provider>
