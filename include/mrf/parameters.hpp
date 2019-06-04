@@ -44,6 +44,7 @@ struct Parameters {
     static constexpr char del = ','; ///< Delimiter
 
     Parameters(const std::string& = std::string());
+
     static std::string header();
     std::string toString() const;
     inline friend std::ostream& operator<<(std::ostream& os, const Parameters& p) {
