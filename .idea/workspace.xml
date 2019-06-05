@@ -25,9 +25,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2ebfccb-3b8a-4ed0-b221-d28185166c10" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/res/parameters_kitti.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/parameters_kitti.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/res/parameters_kitti.yaml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/~/catkin_tool_ws/build/" />
@@ -43,26 +42,46 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Release" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apps/eval_scenenet/eval_scenenet.cpp">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4">
-              <caret line="471" selection-start-line="471" selection-end-line="471" />
+            <state relative-caret-position="524">
+              <caret line="132" column="42" lean-forward="true" selection-start-line="132" selection-start-column="42" selection-end-line="132" selection-end-column="42" />
               <folding>
                 <element signature="e#39#70#0" expanded="true" />
-                <element signature="e#6775#6822#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/mrf/solver.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="389">
-              <caret line="157" column="36" lean-forward="true" selection-start-line="157" selection-start-column="36" selection-end-line="157" selection-end-column="36" />
+            <state relative-caret-position="105">
+              <caret line="7" column="16" lean-forward="true" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/mrf/parameters.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
               <folding>
-                <element signature="e#39#70#0" expanded="true" />
+                <element signature="e#14#31#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/mrf/data.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1">
+              <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+              <folding>
+                <element signature="e#14#31#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -71,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/parameters_kitti.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="48" column="25" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
+            <state relative-caret-position="274">
+              <caret line="53" column="22" lean-forward="true" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -90,6 +109,7 @@
       <find>minLoc</find>
       <find>in</find>
       <find>cam</find>
+      <find>ceres</find>
     </findStrings>
     <replaceStrings>
       <replace>boost::program_options</replace>
@@ -107,11 +127,12 @@
         <option value="$PROJECT_DIR$/include/mrf/parameters.hpp" />
         <option value="$PROJECT_DIR$/apps/eval_scenenet/eval_scenenet.cpp" />
         <option value="$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp" />
+        <option value="$PROJECT_DIR$/res/parameters_kitti.yaml" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="55" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="1975" />
     <option name="y" value="-4" />
     <option name="width" value="1865" />
     <option name="height" value="1084" />
@@ -148,20 +169,34 @@
               <item name="mrf" type="b2602c69:ProjectViewProjectNode" />
               <item name="mrf" type="47feb1d3:ProjectViewModuleNode" />
               <item name="mrf" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mrf" type="b2602c69:ProjectViewProjectNode" />
               <item name="mrf" type="47feb1d3:ProjectViewModuleNode" />
               <item name="mrf" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="eval_scenenet" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+              <item name="mrf" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mrf" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mrf" type="47feb1d3:ProjectViewModuleNode" />
+              <item name="mrf" type="462c0819:PsiDirectoryNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+              <item name="mrf" type="462c0819:PsiDirectoryNode" />
+              <item name="internal" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mrf" type="b2602c69:ProjectViewProjectNode" />
               <item name="mrf" type="47feb1d3:ProjectViewModuleNode" />
               <item name="mrf" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mrf" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mrf" type="47feb1d3:ProjectViewModuleNode" />
+              <item name="mrf" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -297,12 +332,12 @@
       <updated>1559594278961</updated>
       <workItem from="1559594281092" duration="85000" />
       <workItem from="1559594466248" duration="19667000" />
-      <workItem from="1559676399549" duration="2053000" />
+      <workItem from="1559676399549" duration="6951000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21805000" />
+    <option name="totallyTimeSpent" value="26703000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -314,15 +349,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="3849" y="356" width="1865" height="1056" extended-state="0" />
-    <editor active="true" />
+    <frame x="1975" y="-4" width="1865" height="1084" extended-state="7" />
     <layout>
-      <window_info id="Structure" order="0" sideWeight="0.5007278" side_tool="true" weight="0.15612975" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4992722" side_tool="true" visible="true" weight="0.13139087" />
+      <window_info id="Structure" order="0" sideWeight="0.5007278" side_tool="true" weight="0.28367233" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4992722" side_tool="true" visible="true" weight="0.23034634" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286638" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.38179916" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39330545" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -342,17 +376,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp</url>
-          <line>119</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/test/CMakeLists (copy).txt">
@@ -431,27 +454,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/mrf/io.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="43" column="26" lean-forward="true" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///opt/ros/kinetic/include/opencv-3.3.1-dev/opencv2/core/matx.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="420" column="22" selection-start-line="420" selection-start-column="22" selection-end-line="420" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/mrf/parameters.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="45" column="51" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
-          <folding>
-            <element signature="e#14#31#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -480,13 +486,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1035">
           <caret line="69" column="22" selection-start-line="69" selection-start-column="22" selection-end-line="69" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/mrf/solver.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -534,13 +533,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/camera_model_pinhole.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="19" column="64" selection-start-line="15" selection-start-column="39" selection-end-line="19" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/mrf/noise.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -555,9 +547,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/include/mrf/io.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-226">
+          <caret line="140" column="14" selection-start-line="140" selection-start-column="14" selection-end-line="140" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/mrf/internal/solver_impl.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4966">
+          <caret line="36" column="83" lean-forward="true" selection-start-line="36" selection-start-column="83" selection-end-line="36" selection-end-column="83" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/camera_model_pinhole.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-46">
+          <caret line="19" column="64" selection-start-line="15" selection-start-column="39" selection-end-line="19" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apps/eval_scenenet/eval_scenenet.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4">
+        <state relative-caret-position="251">
           <caret line="471" selection-start-line="471" selection-end-line="471" />
           <folding>
             <element signature="e#39#70#0" expanded="true" />
@@ -566,17 +582,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/include/mrf/data.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1">
+          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+          <folding>
+            <element signature="e#14#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/mrf/parameters.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+          <folding>
+            <element signature="e#14#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/res/parameters_kitti.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="48" column="25" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
+        <state relative-caret-position="274">
+          <caret line="53" column="22" lean-forward="true" selection-start-line="53" selection-start-column="22" selection-end-line="53" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/mrf/solver.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="16" lean-forward="true" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/eval_kitti/eval_kitti.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="157" column="36" lean-forward="true" selection-start-line="157" selection-start-column="36" selection-end-line="157" selection-end-column="36" />
+        <state relative-caret-position="524">
+          <caret line="132" column="42" lean-forward="true" selection-start-line="132" selection-start-column="42" selection-end-line="132" selection-end-column="42" />
           <folding>
             <element signature="e#39#70#0" expanded="true" />
           </folding>

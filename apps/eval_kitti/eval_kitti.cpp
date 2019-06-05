@@ -143,12 +143,16 @@ int main(int argc, char** argv) {
   inputCloud = mrf::estimateNormals<KittiPoint, PclPoint>(rawCloud,
       p_mrf.radius_normal_estimation, false);
 
-//  LOG(INFO) << "Downsample cloud";
-//  PclCloud::Ptr inputCloud_downsampled;
+  LOG(INFO) << "Downsample cloud";
+  PclCloud::Ptr inputCloud_downsampled;
+  inputCloud_downsampled = mrf::downsampleEquidistant<PclPoint>(inputCloud, 10, 5);
 
   cv::Mat image_in = img_photo;
 
   const mrf::Data<PclPoint> in{inputCloud, image_in};
+//  const mrf::Data<PclPoint> in{inputCloud_downsampled, image_in};
+  mrf::exportCloud<PclPoint>(in.cloud, output_data_path.string() + "in_");
+
 
   LOG(INFO) << "Call MRF library";
   mrf::Data<PointOut> out;
